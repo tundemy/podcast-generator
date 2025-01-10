@@ -1,21 +1,27 @@
-# Use Ubuntu as a base image
 FROM ubuntu:latest
 
-# Install Python 3.10, pip, and git
+# Install Python, pip, and git
 RUN apt-get update && apt-get install -y \
     python3.10 \
     python3-pip \
-    git
+    git \
+    python3-venv  # Add python3-venv to create a virtual environment
 
-# Install PyYAML
-RUN pip3 install PyYAML
+# Create a virtual environment for Python
+RUN python3 -m venv /venv
 
-# Copy feed.py to the container
+# Install PyYAML within the virtual environment
+RUN /venv/bin/pip install --upgrade pip
+RUN /venv/bin/pip install PyYAML
+
+# Copy your feed.py into the container
 COPY feed.py /usr/bin/feed.py
 
-# Copy entrypoint.sh to the container and set it up to be executable
+# Copy the entrypoint script into the container
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
-# Use the entrypoint script to start the container
+# Set the virtual environment as the default Python environment
+ENV PATH="/venv/bin:$PATH"
+
+# Set the entrypoint to the shell script
 ENTRYPOINT ["/entrypoint.sh"]
