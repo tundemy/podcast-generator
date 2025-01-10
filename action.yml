@@ -1,5 +1,5 @@
 name: "Podcast Gen"
-author: "Titilope Orukotan"
+author: "Titilope-Orukotan"
 description: "Generate a podcast episode from a YAML file"
 runs:
   using: "docker"
