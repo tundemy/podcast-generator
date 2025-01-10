@@ -1,4 +1,4 @@
-name: "Podcast Generator"
+name: "Podcast Gen"
 author: "Titilope Orukotan"
 description: "Generate a podcast episode from a YAML file"
 runs:
